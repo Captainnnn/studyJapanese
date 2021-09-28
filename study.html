@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    h3 {
+      text-align: center;
+    }
+
+    .word {
+      font-size: 128px;
+      text-align: center;
+    }
+
+    .btn-groups {
+      text-align: center;
+    }
+
+    .pronounce {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>React App</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <h3 class="mode">全部</h3>
+  <div class="btn-groups">
+    <button class="totalBtn">ぜんぶ(全部)</button>
+    <button class="pingjiamingBtn">ひらがな(平假名)</button>
+    <button class="pianjiamingBtn">かたかな(片假名)</button>
+  </div>
+  <h1 class="word">あ</h1>
+  <h5 class="pronounce">a</h5>
+  <script>
+    const pingjm = [
+      'あ', 'い', 'う', 'え', 'お',
+      'か', 'き', 'く', 'け', 'こ',
+      'さ', 'し', 'す', 'せ', 'そ',
+      'た', 'ち', 'つ', 'て', 'と',
+      'な', 'に', 'ぬ', 'ね', 'の',
+      'は', 'ひ', 'ふ', 'へ', 'ほ',
+      'ま', 'み', 'む', 'め', 'も',
+      'や', '(い)', 'ゆ', '(え)', 'よ',
+      'ら', 'り', 'る', 'れ', 'ろ',
+      'わ', '(い)', '(う)', '(え)', 'を',
+      'ん',
+    ];
+    const pianjm = [
+      'ア', 'イ', 'ウ', 'エ', 'オ',
+      'カ', 'キ', 'ク', 'ケ', 'コ',
+      'サ', 'シ', 'ス', 'セ', 'ソ',
+      'タ', 'チ', 'ツ', 'テ', 'ト',
+      'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
+      'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
+      'マ', 'ミ', 'ム', 'メ', 'モ',
+      'ヤ', '(イ)', 'ユ', '(エ)', 'ヨ',
+      'ラ', 'リ', 'ル', 'レ', 'ロ',
+      'ワ', '(イ)', '(ウ)', '(エ)', 'ヲ',
+      'ン',
+    ];
+    const totaljm = [...pingjm, ...pianjm];
+    const jmPronounce = [
+      'a', 'i', 'u', 'e', 'o',
+      'ka', 'ki', 'ku', 'ke', 'ko',
+      'sa', 'si', 'su', 'se', 'so',
+      'ta', 'ti', 'tu', 'te', 'to',
+      'na', 'ni', 'nu', 'ne', 'no',
+      'ha', 'hi', 'hu', 'he', 'ho',
+      'ma', 'mi', 'mu', 'me', 'mo',
+      'ya', 'i', 'yu', 'e', 'yo',
+      'ra', 'ri', 'ru', 're', 'ro',
+      'wa', 'i', 'u', 'e', 'wo',
+      'n',
+      'a', 'i', 'u', 'e', 'o',
+      'ka', 'ki', 'ku', 'ke', 'ko',
+      'sa', 'si', 'su', 'se', 'so',
+      'ta', 'ti', 'tu', 'te', 'to',
+      'na', 'ni', 'nu', 'ne', 'no',
+      'ha', 'hi', 'hu', 'he', 'ho',
+      'ma', 'mi', 'mu', 'me', 'mo',
+      'ya', 'i', 'yu', 'e', 'yo',
+      'ra', 'ri', 'ru', 're', 'ro',
+      'wa', 'i', 'u', 'e', 'wo',
+      'n'
+    ];
+
+    const word = document.getElementsByClassName('word')[0];
+    const pronounce = document.getElementsByClassName('pronounce')[0];
+    const mode = document.getElementsByClassName('mode')[0];
+    const totalBtn = document.getElementsByClassName('totalBtn')[0];
+    const pingjiamingBtn = document.getElementsByClassName('pingjiamingBtn')[0];
+    const pianjiamingBtn = document.getElementsByClassName('pianjiamingBtn')[0];
+
+    totalBtn.addEventListener('click', () => {
+      mode.textContent = '全部';
+    });
+    pingjiamingBtn.addEventListener('click', () => {
+      mode.textContent = '平假名';
+    });
+    pianjiamingBtn.addEventListener('click', () => {
+      mode.textContent = '片假名';
+    });
+
+    const clickHandler = () => {
+      const modeText = mode.textContent;
+      if (modeText === '平假名') {
+        const num = Math.floor(Math.random() * 51);
+        word.textContent = pingjm[num];
+        pronounce.textContent = jmPronounce[num];
+      } else if (modeText === '片假名') {
+        const num = Math.floor(Math.random() * 51);
+        word.textContent = pianjm[num];
+        pronounce.textContent = jmPronounce[num];
+      } else {
+        const num = Math.floor(Math.random() * 102);
+        word.textContent = totaljm[num];
+        pronounce.textContent = jmPronounce[num];
+      }
+    };
+    word.addEventListener('click', clickHandler);
+  </script>
+</body>
+
+</html>
